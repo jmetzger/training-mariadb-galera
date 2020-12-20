@@ -40,11 +40,11 @@
      * [Backup und Restore mit Mariabackup (Ubuntu/Debian)](backup-mariabackup-ubuntu-debian.md)
      * [Backup automatisiert](backup-automatisiert.md) 
 
-   1. [Documentation/Help]
+   1. Documentation/Help
       * [Documentation-Server-System-Variables](#12-Documentation) 
       * [Documentation/Help](documentation-help.md)
 
-  1. [MySQL - Galera - Cluster]
+  1. MySQL - Galera - Cluster
      * [Overall Document](Galera.md#10-mysql-galera-cluster)
   
   1. Deploy Galera Cluster + Maxscale with Ansible 
