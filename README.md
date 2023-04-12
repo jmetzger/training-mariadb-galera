@@ -16,7 +16,7 @@
      * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
   
   1. Troubleshooting  
-     * [Handling bei Stromausfall](galera-stromausfall.md) 
+     * [Handling on power outage](galera-poweroutage.md) 
   
   1. Tipps & Tricks 
      * [Find good gcache-size](determine-gcache.md) 
@@ -37,7 +37,7 @@
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
 
   1. Backup und Restore
-     * [Backup und Restore mit Mariabackup (Ubuntu/Debian)](backup-mariabackup-ubuntu-debian.md)
+     * [Backup und Restore with Mariabackup (Ubuntu/Debian)](backup-mariabackup-ubuntu-debian.md)
      * [Backup automatisiert](backup-automatisiert.md) 
 
    1. Documentation/Help
@@ -60,7 +60,7 @@
    
   1. [EasyPeasy - mysqladmin](mysqladmin.md) 
 
-## 2-Installation and Configuration 
+## Backlog  
 
 ### 2.1 Installation
 
@@ -150,10 +150,6 @@ innodb_autoinc_lock_mode = 2
   * node have no connection 
   
 ```
-## Does not work, because established connections to still on requests
-for i in  3306 4444 4567 4568 ; do firewall-cmd --remove-port=$i/tcp; done
-firewall-cmd --remove-port=4567/udp 
-
 ## try this instead + do it on terminal !
 ## on node 3 (or another node) 
 systemctl stop firewalld 
