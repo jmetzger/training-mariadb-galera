@@ -1,4 +1,8 @@
-# Start Cluster after poweroutage  
+# Start Cluster after power outage  
+
+## What is the catch ? 
+
+  * You want to start the cluster with the most recent node 
 
 ## Prerequisites 
 
@@ -15,7 +19,7 @@ disabled
   * Execute this on EVERY Node.
   
 ```
-## Imporant galera should not run on any node: mariadb server darf nicht laufen 
+## Imporant mariadb should not run on any node 
 systemctl is-active mariadb 
 systemctl status mariadb 
 galera_recovery 
