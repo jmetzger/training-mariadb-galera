@@ -1,24 +1,27 @@
 # Installation 
 
-## Get repo and install 
+## Get repo and install (Ubuntu 22.04 LTS) 
 
 ```
-# https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=focal--ubuntu_focal&mirror=23Media&version=10.4
-sudo apt-get install software-properties-common
-sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
-sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.23media.de/mariadb/repo/10.4/ubuntu focal main'
+# https://mariadb.org/download/?t=repo-config&d=22.04+%22jammy%22&v=10.6&r_m=agdsn
+sudo apt-get install apt-transport-https curl
+sudo curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc'
+sudo sh -c "echo 'deb https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.6/ubuntu jammy main' >>/etc/apt/sources.list"
 
+sudo apt update
 sudo apt install mariadb-server 
 hostnamectl set-hostname galera1.training.local 
 ```
 
-## Im  Training 
+## Only when working with virtual box 
+
+### Steps 
 
   * Maschinen 2x in virtualbox clonen 
 
-## Achtung machine_id löschen 
+###  Important delete -  machine-id 
 
-  * Sonst erfolgt die gleiche IP auf allen maschinen 
+  *  Otherwice the machines will have the same ip 
 
 ```
 sudo rm -f /etc/machine-id 
