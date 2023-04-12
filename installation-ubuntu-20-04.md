@@ -1,6 +1,6 @@
 # Installation 
 
-## Repo besorgen und installieren
+## Get repo and install 
 
 ```
 # https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=focal--ubuntu_focal&mirror=23Media&version=10.4
