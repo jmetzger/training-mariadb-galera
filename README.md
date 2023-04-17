@@ -3,14 +3,11 @@
 ## Agenda 
 
   1. Technical Background / Basics  
-
      * [Technical Structure](technical-structure.md)
      * [Used Ports](arch.md)
  
   1. Installation
-     * [Installation (Ubuntu 20.04 LTS)](installation-ubuntu-20-04.md)
      * [Installation (Debian 11)](installation-debian-11.md)
-     * [Installation (Centos 8)](installation-centos-8.md)
   
   1. Configuration
      * [MariaDB Cluster Configuration (Ubuntu 20.04 LTS / MariaDb 10.04)](cluster-configuration-ubuntu-20-04.md)
@@ -63,10 +60,9 @@
 
 ## Backlog  
 
-### 2.1 Installation
-
-  * [Installation (Ubuntu 20.04)](installation-ubuntu-20-04.md)
-  * [Installation (Centos 8)](installation-centos-8.md)
+  1. Installation 
+     * [Installation (Ubuntu 20.04)](installation-ubuntu-20-04.md)
+     * [Installation (Centos 8)](installation-centos-8.md)
 
 ### 2.2.1 Configuration
 
