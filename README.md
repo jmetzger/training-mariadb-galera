@@ -70,52 +70,8 @@
   * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
  
 
-## 9 Backup und Restore
-
-### Import csv-data 
-
-https://www.mysqltutorial.org/import-csv-file-mysql-table/
 
 
-
-
-### Automation with cron 
-
-```
-#/root/.my.cnf
-[client]
-password=here_my_pass_for_root
-```
-
-```
-# /etc/cron.daily/backup
-# chmod u+x 
-#!/bin/bash
-
-if [ ! -d /usr/src/backups ]
-then
-  mkdir /usr/src/backups/
-fi
-
-cd /usr/src/backups
-TODAY=$(date +"%Y%m%d%H%M%S")
-echo $TODAY
-mkdir $TODAY
-cd $TODAY
-
-
-mysqldump --all-databases > all-databases.sql
-
-date >> /var/log/dbbackup.log
-
-
-```
-
-### Alternative with .timers (systemd)
-
-https://kofler.info/systemd-timer-als-cron-alternative/
-
-### 12 Documentation 
 
 #### Server System Variables 
 
