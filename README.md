@@ -9,6 +9,7 @@
  
   1. Installation
      * [Installation (Ubuntu 20.04 LTS)](installation-ubuntu-20-04.md)
+     * [Installation (Debian 11)](installation-debian-11.md)
      * [Installation (Centos 8)](installation-centos-8.md)
   
   1. Configuration
