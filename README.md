@@ -10,7 +10,7 @@
      * [Installation (Debian 11)](installation-debian-11.md)
   
   1. Configuration
-     * [MariaDB Cluster Configuration (Ubuntu 20.04 LTS / MariaDb 10.04)](cluster-configuration-ubuntu-20-04.md)
+     * [MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)](cluster-configuration-debian-11.md)
      * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
   
   1. Troubleshooting  
@@ -68,7 +68,8 @@
      * [MariaDB Cluster Configuration (Ubuntu 20.04 LTS / MariaDb 10.04)](cluster-configuration-ubuntu-20-04.md)
      * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
  
-
+  
+   
 #### Server System Variables 
 
  * https://mariadb.com/kb/en/server-system-variables/
