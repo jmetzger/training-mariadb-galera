@@ -64,14 +64,10 @@
      * [Installation (Ubuntu 20.04)](installation-ubuntu-20-04.md)
      * [Installation (Centos 8)](installation-centos-8.md)
 
-### 2.2.1 Configuration
-
-  * [MariaDB Cluster Configuration (Ubuntu 20.04 LTS / MariaDb 10.04)](cluster-configuration-ubuntu-20-04.md)
-  * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
+  1. Configuration
+     * [MariaDB Cluster Configuration (Ubuntu 20.04 LTS / MariaDb 10.04)](cluster-configuration-ubuntu-20-04.md)
+     * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
  
-
-
-
 
 #### Server System Variables 
 
