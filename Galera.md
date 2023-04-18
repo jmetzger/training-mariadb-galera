@@ -1,4 +1,4 @@
-# 10 MariaDB Galera Cluster 
+# MariaDB Galera Cluster 
 
 ##  MariaDB Galera Cluster Architecture
 
@@ -57,10 +57,6 @@
 ```"Transaction size. While Galera does not explicitly limit the transaction size, a writeset is processed as a single memory-resident buffer and as a result, extremely large transactions (e.g. LOAD DATA) may adversely affect node performance. To avoid that, the wsrep_max_ws_rows and wsrep_max_ws_size system variables limit transaction rows to 128K and the transaction size to 1Gb by default. If necessary, users may want to increase those limits. Future versions will add support for transaction fragmentation."
 ```
 
-#### Structure of the Configuration
-
-
-*  Discuss the layers.
 
 #### Basic Configuration of the galera cluster
 
