@@ -5,6 +5,7 @@
   1. Technical Background / Basics  
      * [Technical Structure](technical-structure.md)
      * [Used Ports](arch.md)
+     * [State Changes - SST/IST](sst-ist.md)
  
   1. Installation
      * [Installation (Debian 11)](installation-debian-11.md)
