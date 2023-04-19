@@ -11,7 +11,7 @@ sudo sh -c "echo 'deb https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.6/debian 
 
 sudo apt update
 sudo apt install -y mariadb-server 
-hostnamectl set-hostname g1.t3isp.de 
+# hostnamectl set-hostname g1.t3isp.de 
 ```
 
 ## Only when working with virtual box 
