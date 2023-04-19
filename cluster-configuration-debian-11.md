@@ -13,7 +13,7 @@ bind-address=0.0.0.0
 # Set to 1 sec instead of per transaction
 
 # for better performance // Attention: You might loose data on power outage
-innodb_flush_log_at_trx_commit=0
+innodb_flush_log_at_trx_commit=2
 
 # Galera Provider Configuration
 
