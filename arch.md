@@ -1,6 +1,6 @@
 # Architecture 
  
-## 1.2. Ports used
+## Ports used
 
 ```
 Port 3306 :: mysql default port + mysqldump for SST 
