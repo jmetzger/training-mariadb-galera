@@ -11,10 +11,10 @@
   1. Installation
      * [Installation (Debian 11)](installation-debian-11.md)
   
-  1. Configuration
+  1. Configuration / Evaluation 
      * [MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)](cluster-configuration-debian-11.md)
-     * [MariaDB Cluster Configuration (Centos)](cluster-configuration-centos.md) 
-  
+     * [Is Cluster running?](is-cluster-running.md)
+   
   1. Troubleshooting  
      * [Handling on power outage](galera-poweroutage.md) 
   
