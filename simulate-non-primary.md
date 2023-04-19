@@ -20,7 +20,7 @@ date
 
 ```
 
-### Step 2: Obey what is happening
+### Step 2: Monitoring what is happening
 
 ```
 # Now have a look into node 1 
