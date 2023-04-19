@@ -21,7 +21,7 @@ wsrep_on=ON
 wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 # Galera Cluster Configuration
-wsrep_cluster_name="test_cluster"
+wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
 wsrep_cluster_address="gcomm://10.135.0.x"
 
 # Galera Synchronization Configuration
