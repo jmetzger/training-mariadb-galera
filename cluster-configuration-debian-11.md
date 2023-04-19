@@ -1,9 +1,9 @@
-# Cluster Configuration (ubuntu - MariaDB 10.4 from mariadb.org) 
+# Cluster Configuration (ubuntu/debian - MariaDB 10.6 from mariadb.org) 
 
 ## Node 1 
 
 ```
-# cat /etc/mysql/mariadb.conf.d/z_galera.cnf
+# cat /etc/mysql/mariadb.conf.d/60-galera.cnf
 [mysqld]
 binlog_format=ROW
 default-storage-engine=innodb
