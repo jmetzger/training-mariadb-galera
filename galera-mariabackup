@@ -8,6 +8,10 @@ apt install -y mariadb-backup
 
 # which options to user 
 mkdir /backups 
+
+echo "[mariabackup]" >> /root/.my.cnf
+echo "user=root" >> /root/.my.cnf 
+
 mariabackup --target-dir=/backups/20230420 --galera-info --backup 
 
 # prepare 
