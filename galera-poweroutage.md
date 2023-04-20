@@ -1,6 +1,6 @@
 # Start Cluster after power outage  
 
-## Produce power outage - exercise 
+## Produce power outage - exercise (simulate power outage)
 
 ```
 # on all nodes 
