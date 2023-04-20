@@ -3,7 +3,7 @@
 ## Walkthrough 
 
 ```
-# 1. Adjust repo in /etc/sources.list 
+# 1. Adjust repo in /etc/apt/sources.list 
 deb https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.11/debian bullseye main
 apt update 
 
