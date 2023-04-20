@@ -15,6 +15,7 @@
   1. Configuration / Evaluation 
      * [MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)](cluster-configuration-debian-11.md)
      * [Is Cluster running?](is-cluster-running.md)
+     * [wsrep_ vars and wsrep_provider_options for config](wsrep-config.md) 
    
   1. Troubleshooting  
      * [Handling on power outage](galera-poweroutage.md) 
