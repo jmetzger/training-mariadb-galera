@@ -17,7 +17,7 @@
      * [Is Cluster running?](is-cluster-running.md)
      * [wsrep_ vars and wsrep_provider_options for config](wsrep-config.md) 
      * [Adjusted wsrep_node_address for multiple interfaces scenario](using-wsrep-node-address.md)
-     * [Setting up the firewall](firewalld.md)
+     * [Setting up the firewall with firewalld](firewalld.md)
    
   1. Troubleshooting  
      * [Handling on power outage](galera-poweroutage.md) 
