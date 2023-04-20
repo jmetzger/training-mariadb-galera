@@ -36,6 +36,9 @@
   
   1. Monitoring 
      * [Monitoring Galera Cluster](monitoring.md) 
+     
+  1. Maintenance/Administration 
+     * [Upgrading major version](galera-upgrade-major.md)
 
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
