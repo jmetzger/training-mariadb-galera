@@ -60,6 +60,9 @@
   1. [Backup und Recover - mysqldump/mysql ](mysqldump-mysql.md) 
    
   1. [EasyPeasy - mysqladmin](mysqladmin.md) 
+  
+  1. Documentation 
+     * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
 
 ## Backlog  
 
@@ -73,15 +76,6 @@
  
   
    
-#### Server System Variables 
-
- * https://mariadb.com/kb/en/server-system-variables/
-
-```
-show variables like 'wsrep%' \G
-show status like 'wsrep%' \G
-```
-
 ### 13 Performance 
 
 ```
