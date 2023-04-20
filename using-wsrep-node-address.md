@@ -19,17 +19,17 @@ r111 - 10.135.0.21
 on r1 / etc/mysql/mariadb.conf.d/60-galera.cnf 
 wsrep_node_address = 10.135.0.7 
 systemctl restart mariadb 
-mysql -e "show variables like '%incoming%'";
+mysql -e "show status like '%incoming%'";
 
 on r11 / 
 wsrep_node_address = 10.135.0.14 
 systemctl restart mariadb 
-mysql -e "show variables like '%incoming%'";
+mysql -e "show status like '%incoming%'";
 
 on r111 / 
 wsrep_node_address = 10.135.0.21
 systemctl restart mariadb 
-mysql -e "show variables like '%incoming%'";
+mysql -e "show status like '%incoming%'";
 ```
 
 
