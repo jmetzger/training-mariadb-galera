@@ -6,7 +6,9 @@
 # on all nodes 
 ps aux | grep mariadbd 
 # e.g. 5911 
+```
 
+```
 kill -9 5911; systemctl stop mariadb 
 
 ```
