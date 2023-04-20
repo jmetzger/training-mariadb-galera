@@ -16,7 +16,15 @@ systemctl enable firewalld
 firwall-cmd --list-all 
 ```
 
-## Walkthrough (on all nodes) 
+
+## Step 1: (only for Debian / Ubuntu) 
+
+```
+sudo firewall-cmd --permanent --zone=public --add-interface={eth0,eth1}
+sudo firewall-cmd --reload 
+```
+
+## Step 2: Walkthrough (on all nodes) 
 ```
 sudo firewall-cmd --permanent --add-port={3306,4444,4567,4568}/tcp
 sudo firewall-cmd --permanent --add-port=4567/udp
