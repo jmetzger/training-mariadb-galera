@@ -41,8 +41,7 @@
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
 
   1. Backup und Restore
-     * [Backup und Restore with Mariabackup (Ubuntu/Debian)](backup-mariabackup-ubuntu-debian.md)
-     * [Backup automatisiert](backup-automatisiert.md) 
+     * [Backup und Restore with Mariabackup (Ubuntu/Debian)](galera-mariabackup.md)
 
    1. Documentation/Help
       * [Documentation-Server-System-Variables](#12-Documentation) 
