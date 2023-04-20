@@ -66,6 +66,7 @@
   
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
+     * [thread pool](https://mariadb.com/kb/en/thread-pool-in-mariadb/)
 
 ## Backlog  
 
