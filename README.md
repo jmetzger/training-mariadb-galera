@@ -21,6 +21,7 @@
    
   1. Troubleshooting  
      * [Handling on power outage](galera-poweroutage.md) 
+     * [Node not coming up -start fresh](troubleshoot-galera-node.md)
   
   1. Tipps & Tricks 
      * [Find good gcache-size](determine-gcache.md) 
