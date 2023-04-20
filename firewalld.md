@@ -8,6 +8,12 @@ systemctl status firewalld
 
 # How to the rules look like ? 
 firewall-cmd --list-all 
+
+# installing if not there 
+apt install -y firewalld
+systemctl status firwalld 
+systemctl enable firewalld
+firwall-cmd --list-all 
 ```
 
 ## Walkthrough 
