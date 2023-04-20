@@ -30,3 +30,11 @@ sudo firewall-cmd --permanent --add-port={3306,4444,4567,4568}/tcp
 sudo firewall-cmd --permanent --add-port=4567/udp
 sudo firewall-cmd --reload
 ```
+
+## Step 3: Evaluate 
+
+```
+# on one node 
+show status like 'wsrep%size';
+```
+
