@@ -4,6 +4,39 @@
 
   * Having multiple network interfaces and not using the first one (e.g. eth0) 
 
+## Version 1
+
+## Step 1: Adjust configuration files on each node / restart and check incoming_address 
+
+```
+r1 - 10.135.0.7 
+r11 - 10.135.0.14 
+r111 - 10.135.0.21 
+
+```
+
+```
+on r1 / etc/mysql/mariadb.conf.d/60-galera.cnf 
+wsrep_node_address = 10.135.0.7 
+systemctl restart mariadb 
+mysql -e "show variables like '%incoming%'";
+
+on r11 / 
+wsrep_node_address = 10.135.0.14 
+systemctl restart mariadb 
+mysql -e "show variables like '%incoming%'";
+
+on r111 / 
+wsrep_node_address = 10.135.0.21
+systemctl restart mariadb 
+mysql -e "show variables like '%incoming%'";
+```
+
+
+
+
+## Version 2 (need to stop cluster) - not recommended 
+
 ## Step 1: Adjust configuration files on all node 
 
 ```
