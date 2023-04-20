@@ -38,8 +38,8 @@ vi grastate.dat
 ```
 # GALERA saved state
 version: 2.1
-uuid:    <enter from galera_info uuid here>
-seqno:   <enter seq_no (value behind :) here>
+uuid:    <enter from xtrabackup_galera_info uuid here>
+seqno:   <enter seq_no (value behind :) from xtrabackup_galer_info here>
 safe_to_bootstrap: 0
 ```
 
