@@ -18,3 +18,38 @@ mariabackup --target-dir=/backups/20230420 --galera-info --backup
 mariabackup --target-dir=/backups/20230420 --galera-info --prepare 
 
 ```
+
+## Walkthrough (Recovery for node to join to cluster) but with backup 
+
+```
+# Step 1:
+Reset the server 
+systemctl stop mariadb 
+mv /var/lib/mysql /var/lib/mysql.old 
+# prepare grstate.dat 
+cd /backups/20230420
+vi grastate.dat 
+```
+
+```
+# You need to adjust the gtid (seq-no)
+```
+
+```
+# GALERA saved state
+version: 2.1
+uuid:    <enter from galera_info uuid here>
+seqno:   <enter seq_no (value behind :) here>
+safe_to_bootstrap: 0
+```
+
+```
+mariabackup --target-dir=/backups/20230420 --copy-back 
+chown -R mysql:mysql /var/lib/mysql
+systemctl start mariadb 
+```
+
+```
+# is it part of the cluster again 
+show status like '%wsrep%';
+```
