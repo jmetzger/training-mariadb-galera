@@ -1,6 +1,6 @@
 # Setup firewall rules with firewall-cmd for galera 
 
-## Prerequisites 
+## Prerequisites (on all nodes)
 
 ```
 # is firewalld installed ?
@@ -16,7 +16,7 @@ systemctl enable firewalld
 firwall-cmd --list-all 
 ```
 
-## Walkthrough 
+## Walkthrough (on all nodes) 
 ```
 sudo firewall-cmd --permanent --add-port={3306,4444,4567,4568}/tcp
 sudo firewall-cmd --permanent --add-port=4567/udp
