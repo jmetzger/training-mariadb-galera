@@ -23,6 +23,11 @@ systemctl start mariadb
 # 6. Evalatuate
 show status like 'wsrep%';
 
+# 7. Upgrade system tables
+# normally this should already be done automatically on server startup 
+# but executing it ones more does no harm 
+mysql_upgrade --skip-write-binlog 
+
 ```
 
 ## Reference:
