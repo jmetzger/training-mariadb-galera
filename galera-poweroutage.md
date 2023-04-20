@@ -26,9 +26,10 @@ systemctl is-enabled mariadb
 disabled
 ```
 
-## Schritte:
+## Step 1: Identify first node to start
 
   * Execute this on EVERY Node.
+  * Start node with highest seq_no firstly with galera_new_cluster
   
 ```
 ## Imporant mariadb should not run on any node 
