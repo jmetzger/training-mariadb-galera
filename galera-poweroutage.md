@@ -1,5 +1,18 @@
 # Start Cluster after power outage  
 
+## Produce power - exercise 
+
+```
+# on all nodes 
+ps aux | grep mariadbd 
+# e.g. 5911 
+
+kill -9 5911; systemctl stop mariadb 
+
+```
+
+
+
 ## What is the catch ? 
 
   * You want to start the cluster with the most recent node 
