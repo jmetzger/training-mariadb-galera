@@ -10,10 +10,7 @@ ps aux | grep mariadbd
 
 ```
 kill -9 5911; systemctl stop mariadb 
-
 ```
-
-
 
 ## What is the catch ? 
 
