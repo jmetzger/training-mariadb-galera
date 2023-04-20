@@ -13,6 +13,9 @@ echo "[mariabackup]" >> /root/.my.cnf
 echo "user=root" >> /root/.my.cnf 
 
 mariabackup --target-dir=/backups/20230420 --galera-info --backup 
+# desync = off 
+mysql -e "set global wsrep_desync='off'"
+
 
 # prepare 
 mariabackup --target-dir=/backups/20230420 --galera-info --prepare 
