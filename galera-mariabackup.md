@@ -15,6 +15,6 @@ echo "user=root" >> /root/.my.cnf
 mariabackup --target-dir=/backups/20230420 --galera-info --backup 
 
 # prepare 
-mariabackup --target-dir=/backups/20230420 --galera-info --backup  
+mariabackup --target-dir=/backups/20230420 --galera-info --prepare 
 
 ```
