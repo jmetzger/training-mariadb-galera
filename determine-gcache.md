@@ -32,3 +32,7 @@ Hold time = 128MB / (7200MB / 4h) = 128MB / 0.5 MB = 256s.
 Then, we can calculate the right GCache size value to handle the maintenance window by the following formula: GCache = Maintenance window * Replication Rate = 14400s * 0.5 MB. GCache = 7200MB.
 In other words, the right GCache size should be equivalent to (or not less than) the amount of replicated data.
 ```
+
+## Reference:
+
+  * https://severalnines.com/blog/how-avoid-sst-when-adding-new-node-mysql-galera-cluster/
