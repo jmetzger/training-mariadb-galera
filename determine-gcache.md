@@ -1,5 +1,34 @@
 # Determine gcache size 
 
+## Exercise 
+
+```
+# SSH-Session 1 to node 1:
+sudo su -
+cd /usr/src
+wget https://downloads.mysql.com/docs/sakila-db.tar.gz
+tar xzvf sakila-db.tar.gz 
+cd sakila 
+```
+
+```
+# SSH-Session 2 on node 1:
+mysql> 
+set @start := (select sum(VARIABLE_VALUE/1024/1024) from information_schema.global_status where VARIABLE_NAME like 'WSREP%bytes'); do sleep(60); set @end := (select sum(VARIABLE_VALUE/1024/1024) from information_schema.global_status where VARIABLE_NAME like 'WSREP%bytes'); set @gcache := (select SUBSTRING_INDEX(SUBSTRING_INDEX(@@GLOBAL.wsrep_provider_options,'gcache.size = ',-1), 'M', 1)); select round((@end - @start),2) as `MB/min`, round((@end - @start),2) * 60 as `MB/hour`, @gcache as `gcache Size(MB)`, round(@gcache/round((@end - @start),2),2) as `Time to full(minutes)`;
+```
+
+```
+# SSH-Session 1 on node 1:
+mysql < sakila-structure.sql; mysql < sakila-data.sql 
+```
+
+```
+# See the result in session 2
+```
+
+
+
+
 ## How long can we be down ? 
 
 ```
