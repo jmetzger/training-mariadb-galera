@@ -10,8 +10,8 @@ use crypttest99;
 -- https://stackoverflow.com/questions/16224515/why-is-aes-decrypt-returning-null
 -- Because if AES_DECRYPT() detects invalid data or incorrect padding, it will return NULL.
 
-create table cryptic(id int, title varbinary(20);
-insert into cryptic(id, title) values (1, AES_ENCRYPT('mysecrettext',SHA2('password-key',512))) 
+create table cryptic(id int, title varbinary(20));
+insert into cryptic(id, title) values (1, AES_ENCRYPT('mysecrettext',SHA2('password-key',512)));
 
 
 ```
