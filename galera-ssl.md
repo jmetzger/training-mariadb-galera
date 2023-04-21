@@ -31,9 +31,11 @@ cd /etc/ssl/mysql
 sudo openssl genrsa 2048 > ca-key.pem
 
 # Generate the CA certificate file 
+# Attention: use common_name e.g. : CA 
 sudo openssl req -new -x509 -nodes -days 36500 -key ca-key.pem -out ca.pem
 
 # Create the key file 
+# Attention: use common_name .e.g. : GaleraNode 
 sudo openssl req -newkey rsa:2048 -days 36500 -nodes -keyout server-key.pem -out server-req.pem
 sudo openssl rsa -in server-key.pem -out server-key.pem
 
@@ -72,6 +74,32 @@ tar xvf mysql-sql.tar.gz
 ```
 
 ## Step 4: change configuration node 2 including ssl 
+
+```
+# add the options to all configs 
+wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem"
+```
+
+```
+systemctl start mariadb 
+```
+
+## Step 5: copy certificates to 3nd node 
+
+```
+cd /etc/ssl 
+tar cvfz mysql-sql.tar.gz mysql 
+scp mysql-sql.tar.gz 11trainingdo@10.135.0.14:/tmp 
+
+# on .14 copy from tmp as root
+sudo su -
+cp -a /tmp/mysql-sql.tar.gz /etc/ssl 
+cd /etc/ssl 
+tar xvf mysql-sql.tar.gz 
+
+```
+
+## Step 6: change configuration node 3 including ssl 
 
 ```
 # add the options to all configs 
