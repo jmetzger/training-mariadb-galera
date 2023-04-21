@@ -2,7 +2,7 @@
 
 ```
 # Encrypt 
-drop schema if exists crypttest99
+drop schema if exists crypttest99;
 create schema crypttest99;
 use crypttest99;
 
