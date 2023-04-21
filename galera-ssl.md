@@ -11,7 +11,7 @@ https://www.linuxbabe.com/mariadb/encrypt-replication-traffic-mariadb-galera-clu
 
 ## Encrypting ist
 
-### Step 1: tearing down nodes 
+## Step 1: tearing down nodes 
 
 ```
 on all nodes 
