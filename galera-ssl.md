@@ -45,7 +45,6 @@ sudo chown mysql:mysql /etc/ssl/mysql/ -R
 sudo chmod 400 /etc/ssl/mysql/*
 sudo chmod 700 /etc/ssl/mysql/
 
-# Copy it to all 3 nodes 
 
 # add the options to all configs 
 wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem"
