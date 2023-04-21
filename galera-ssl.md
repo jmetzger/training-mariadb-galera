@@ -5,6 +5,7 @@
 ```
 # Easiest is to encrypt mariabackup 
 
+
 ```
 
 ## Encrypting ist
@@ -41,14 +42,9 @@ wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_
 
 
 
-```
-[sst]
-encrypt=4
-tkey=/etc/letsencrypt/live/linuxbabe.com/privkey.pem
-tcert=/etc/letsencrypt/live/linuxbabe.com/cert.pem
-tca=/etc/letsencrypt/live/linuxbabe.com/chain.pem
-```
+
 
 ## Reference 
 
   * https://www.linuxbabe.com/mariadb/encrypt-replication-traffic-mariadb-galera-cluster-ubuntu
+  * https://mariadb.com/kb/en/introduction-to-state-snapshot-transfers-ssts/#rsync
