@@ -56,6 +56,26 @@ wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_
 galera_new_cluster 
 ```
 
+## Step 3: copy certificates to 2nd node 
+
+```
+cd /etc/ssl 
+tar cvfz mysql-sql.tar.gz mysql 
+scp mysql-sql.tar.gz 11trainingdo@10.135.0.14:/tmp 
+
+# on .14 copy from tmp as root
+sudo su -
+cp -a /tmp/mysql-sql.tar.gz /etc/ssl 
+tar xvf mysql-sql.tar.gz 
+
+```
+
+## Step 4: change configuration node 2 including ssl 
+
+```
+# add the options to all configs 
+wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem"
+```
 
 
 ## Reference 
