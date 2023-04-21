@@ -4,7 +4,8 @@
 
 ```
 # Easiest is to encrypt mariabackup 
-
+# Best docs 
+https://www.linuxbabe.com/mariadb/encrypt-replication-traffic-mariadb-galera-cluster-ubuntu
 
 ```
 
