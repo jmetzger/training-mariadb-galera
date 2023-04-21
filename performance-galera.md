@@ -2,7 +2,7 @@
 
 ## wsrep - status 
 
-````
+```
 # How many times, communicated, he had to pause
 # He/She had to sent flow_control (others should slow donw 
 | wsrep_flow_control_paused     | 0                                                                                                                                              |
