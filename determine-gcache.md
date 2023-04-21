@@ -19,7 +19,7 @@ set @start := (select sum(VARIABLE_VALUE/1024/1024) from information_schema.glob
 
 ```
 # SSH-Session 1 on node 1:
-mysql < sakila-structure.sql; mysql < sakila-data.sql 
+mysql < sakila-schema.sql; mysql < sakila-data.sql 
 ```
 
 ```
