@@ -66,6 +66,7 @@ scp mysql-sql.tar.gz 11trainingdo@10.135.0.14:/tmp
 # on .14 copy from tmp as root
 sudo su -
 cp -a /tmp/mysql-sql.tar.gz /etc/ssl 
+cd /etc/ssl 
 tar xvf mysql-sql.tar.gz 
 
 ```
@@ -75,6 +76,10 @@ tar xvf mysql-sql.tar.gz
 ```
 # add the options to all configs 
 wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem"
+```
+
+```
+systemctl start mariadb 
 ```
 
 
