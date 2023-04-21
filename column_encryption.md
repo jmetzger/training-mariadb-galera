@@ -3,6 +3,7 @@
 ```
 # Encrypt 
 create schema crypttest;
+use crypttest;
 create table cryptic(id int, title varchar(130);
 insert into cryptic(id, title) values (1, AES_ENCRYPT('mysecrettext',SHA2('password-key',512))) 
 
