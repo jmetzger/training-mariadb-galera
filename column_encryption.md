@@ -18,8 +18,7 @@ insert into cryptic(id, title) values (1, AES_ENCRYPT('mysecrettext',SHA2('passw
 
 ```
 # Decrypt 
-select id,aes_decrypt(title,'password-key')  from cryptic;
-
+select id,aes_decrypt(title,sha2('password-key',512))  from cryptic;
 ```
 
 ## Reference:
