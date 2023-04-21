@@ -2,12 +2,11 @@
 
 ## What to monitor ? 
 
-  * Einzelne Nodes
-  * wsrep_local_state_comment -> synced ## eher ein Thema und wenn der nur auf nicht synced steht (z.B. ganzen Tag)  
-  * wsrep_cluster_size 
-  * wsrep_cluster_status # Mitglied des Primär-Knotens -> Primary // Non-Primary is BAD !! 
-  * Läuft die node 
-  * 3306 port offen ? 4567 offen ? 
+  * Single nodes 
+  * wsrep_local_state_comment -> synced # should be synced (but problem if it will not be on synced for a longer time)
+  * wsrep_cluster_status # Primary // Non-Primary is BAD !! 
+  * Does the node run
+  * 3306 port offen ? 4567 open ? 
   
 ## pmmdemo (Percona Management und Monitoring Tool) 
 
