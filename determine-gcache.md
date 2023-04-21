@@ -8,7 +8,7 @@ sudo su -
 cd /usr/src
 wget https://downloads.mysql.com/docs/sakila-db.tar.gz
 tar xzvf sakila-db.tar.gz 
-cd sakila 
+cd sakila-db 
 ```
 
 ```
