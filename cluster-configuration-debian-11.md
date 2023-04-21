@@ -7,8 +7,8 @@
 [mysqld]
 binlog_format=ROW
 default-storage-engine=innodb
-innodb_autoinc_lock_mode=2
-# bind-address=0.0.0.0
+innodb_autoinc_lock_mode=2 
+bind-address=0.0.0.0
 
 # Set to 1 sec instead of per transaction
 
