@@ -55,14 +55,14 @@
      * [Deployment-github-repo](https://github.com/jmetzger/ansible-galera-cluster-maxscale/blob/master/README.md)
  
   1. Security 
-     [Encryption galera cache](encryption-galera.md)
-     [Attacking Cluster -- adding node](add-other-node-insecure.md)
+     * [Encryption galera cache](encryption-galera.md)
+     * [Attacking Cluster -- adding node](add-other-node-insecure.md)
+     * [Galera ssl-encryption](galera-ssl.md)
      
   1. Misc 
-     [EasyPeasy - mysqladmin](mysqladmin.md) 
-     [Backup with Arbitrator aka garbd](garbd-backup.md)
-     [Geolocation galera](galera-geolocation.md)
-     
+     * [EasyPeasy - mysqladmin](mysqladmin.md) 
+     * [Backup with Arbitrator aka garbd](garbd-backup.md)
+     * [Geolocation galera](galera-geolocation.md)
      
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
