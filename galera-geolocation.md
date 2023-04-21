@@ -12,6 +12,12 @@ https://severalnines.com/sites/default/files/blog/node_5775/image3.png
 gmcast.segment 
 (default 0) 
 
+# other datacenter 2 -> 1 
+gmcast.segment = 1 
+
+# other datacenter 3 
+gmcast.segment = 2
+
 Let us setup a second datacenter. 
 Using segments, the communication will only be done to 1 node
 on the other side (other datacenter) 
