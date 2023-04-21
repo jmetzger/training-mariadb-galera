@@ -6,8 +6,8 @@
   * wsrep_local_state_comment -> synced # should be synced (but problem if it will not be on synced for a longer time)
   * wsrep_cluster_status # Primary // Non-Primary is BAD !! 
   * Does the node run
-  * 3306 port offen ? 4567 open ? 
-  
+  * Necessary ports available 
+
 ## pmmdemo (Percona Management und Monitoring Tool) 
 
 
