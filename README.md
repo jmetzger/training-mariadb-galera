@@ -41,6 +41,7 @@
      
   1. Maintenance/Administration 
      * [Upgrading major version](galera-upgrade-major.md)
+     * [Schema Upgrades](schema-upgrades.md)
 
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
@@ -48,7 +49,7 @@
   1. Backup und Restore
      * [Backup und Restore with Mariabackup (Ubuntu/Debian)](galera-mariabackup.md)
 
-   1. Documentation/Help
+  1. Documentation/Help
       * [Documentation-Server-System-Variables](#12-Documentation) 
       * [Documentation/Help](documentation-help.md)
 
@@ -59,8 +60,6 @@
      * [Deployment-github-repo](https://github.com/jmetzger/ansible-galera-cluster-maxscale/blob/master/README.md)
   
   1. [Misc](#11-misc) 
- 
-  1. [Schema Upgrades](schema-upgrades.md)
   
   1. [Backup with Arbitrator aka garbd](garbd-backup.md)
   
@@ -68,9 +67,14 @@
    
   1. [EasyPeasy - mysqladmin](mysqladmin.md) 
   
+  1. Security 
+     [Encryption galera cache](encryption-galera.md)
+  
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
      * [thread pool](https://mariadb.com/kb/en/thread-pool-in-mariadb/)
+     
+    
 
 ## Backlog  
 
