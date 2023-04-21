@@ -1,4 +1,9 @@
-# Add another (no security means) 
+# Hacking -- Add another Node (no security means) 
+
+### Why ?
+
+  * Can we intrude a new node 
+
 
 ## Prerequisite 
 
