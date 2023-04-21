@@ -23,10 +23,7 @@
      * [Handling on power outage](galera-poweroutage.md) 
      * [Node not coming up -start fresh](troubleshoot-galera-node.md)
      * [Find slow nodes](find-slow-nodes.md)
-  
-  1. Tipps & Tricks 
-     * [Find good gcache-size](determine-gcache.md) 
-  
+     
   1. MaxScale 
      * [License MaxScale](maxscale-license.md)
      * [Installation/Configuration - Debian/Ubuntu](maxscale-installation-configuration-debian-ubuntu.md) 
@@ -42,39 +39,33 @@
   1. Maintenance/Administration 
      * [Upgrading major version](galera-upgrade-major.md)
      * [Schema Upgrades](schema-upgrades.md)
-
+     * [Find good gcache-size](determine-gcache.md) 
+ 
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
 
   1. Backup und Restore
      * [Backup und Restore with Mariabackup (Ubuntu/Debian)](galera-mariabackup.md)
-
-  1. Documentation/Help
-      * [Documentation-Server-System-Variables](#12-Documentation) 
-      * [Documentation/Help](documentation-help.md)
-
+     * [Backup und Recover - mysqldump/mysql ](mysqldump-mysql.md) 
+ 
   1. MySQL - Galera - Cluster
      * [Overall Document](Galera.md#10-mysql-galera-cluster)
   
   1. Deploy Galera Cluster + Maxscale with Ansible 
      * [Deployment-github-repo](https://github.com/jmetzger/ansible-galera-cluster-maxscale/blob/master/README.md)
-  
-  1. [Misc](#11-misc) 
-  
-  1. [Backup with Arbitrator aka garbd](garbd-backup.md)
-  
-  1. [Backup und Recover - mysqldump/mysql ](mysqldump-mysql.md) 
-   
-  1. [EasyPeasy - mysqladmin](mysqladmin.md) 
-  
+ 
   1. Security 
      [Encryption galera cache](encryption-galera.md)
-  
+     [Attacking Cluster -- adding node](add-other-node-insecure.md)
+     
+  1. Misc 
+     [EasyPeasy - mysqladmin](mysqladmin.md) 
+     [Backup with Arbitrator aka garbd](garbd-backup.md)
+     
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
      * [thread pool](https://mariadb.com/kb/en/thread-pool-in-mariadb/)
-     
-    
+     * [Documentation/Help](documentation-help.md)
 
 ## Backlog  
 
