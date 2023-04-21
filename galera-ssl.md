@@ -11,6 +11,17 @@ https://www.linuxbabe.com/mariadb/encrypt-replication-traffic-mariadb-galera-clu
 
 ## Encrypting ist
 
+### Step 1: tearing down nodes 
+
+```
+on all nodes 
+systemctl stop mariadb 
+# and on last node too
+check if safe_to _bootstrap in /var/lib/mysql/grastate.dat 
+```
+
+## Step 2: Create certificates on first node and configure 60-galera.cnf 
+
 ```
 # Create the certificates 
 sudo mkdir /etc/ssl/mysql/
@@ -41,7 +52,10 @@ wsrep_provider_options="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_
 
 ```
 
-
+```
+# Start the first node 
+galera_new_cluster 
+```
 
 
 
