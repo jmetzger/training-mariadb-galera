@@ -3,6 +3,13 @@
 ## Encrypting sst 
 
 ```
+# Easiest is to encrypt mariabackup 
+
+```
+
+## Encrypting ist
+
+```
 # Create the certificates 
 sudo mkdir /etc/ssl/mysql/
 cd /etc/ssl/mysql
