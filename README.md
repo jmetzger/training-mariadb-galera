@@ -40,6 +40,7 @@
      * [Upgrading major version](galera-upgrade-major.md)
      * [Schema Upgrades](schema-upgrades.md)
      * [Find good gcache-size](determine-gcache.md) 
+     * [Create fresh datadir](create-fresh-datadir.md)
  
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](performance-galera.md) 
