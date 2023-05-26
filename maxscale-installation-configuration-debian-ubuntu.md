@@ -181,3 +181,20 @@ maxctrl show server server1
 maxctrl list services 
 maxctrl show service ReadWrite-Split-Router 
 ```
+
+## Exercise 
+
+```
+# Create user forr client and maxscale on one of the galera nodes 
+
+
+# Fire Up client-server (used only for mysql-client 
+# there
+# simply take the one from the repo 
+apt install mariadb-client 
+# then connect 
+mysql -ujoe -p -h<ip-of-maxscale>
+mysql>create database training; use training; create table trainee (id int,name varchar(50), primary key(id)); insert into trainee (id, name) values (1,'Jochen'); select @@hostname;
+mysql>use training; select * from trainee; select @@hostname;
+# These should be different servers 
+```
