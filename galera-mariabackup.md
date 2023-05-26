@@ -29,7 +29,7 @@ mariabackup --target-dir=/backups/20230420 --galera-info --prepare
 
 ```
 # Step 1:
-Reset the server 
+# Reset the server 
 systemctl stop mariadb 
 mv /var/lib/mysql /var/lib/mysql.old 
 # prepare grstate.dat 
