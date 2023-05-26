@@ -28,6 +28,7 @@
      * [License MaxScale](#license-maxscale)
      * [Installation/Configuration - Debian/Ubuntu](#installationconfiguration---debianubuntu)
      * [MaxScale Torubleshooting](#maxscale-torubleshooting)
+     * [Monitoring MaxScale](https://mariadb.com/kb/en/mariadb-maxscale-24-mariadb-maxscale-nagios-plugins-for-nagios-351/)
   
   1. ProxySQL 
      * [Proxysql mit Galera aufsetzen](#proxysql-mit-galera-aufsetzen)
@@ -40,6 +41,7 @@
      * [Upgrading major version](#upgrading-major-version)
      * [Schema Upgrades](#schema-upgrades)
      * [Find good gcache-size](#find-good-gcache-size)
+     * [Create fresh datadir](#create-fresh-datadir)
  
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](#performance-trackingoptimization-galera)
@@ -588,6 +590,10 @@ up to 2 nodes (less than 3 without license fee)
 *  Each release transitions in about max 4 years to GPL 
 
 
+### Current version 
+
+  * Current Version is maxscale 6 (05/2023)
+
 ### The MaxScale load-balancer and its components
 
 *  Routers 
@@ -600,15 +606,14 @@ up to 2 nodes (less than 3 without license fee)
 *  Logging Filters
 *  Statement rewriting filters
 *  Result set manipulation filters 
-*  Firewill filter
 *  Pipeline control filters
     * e.g. tee and send to a second server
 
-*  Ref: https://mariadb.com/kb/en/mariadb-maxscale-25-regex-filter/
+*  Ref: https://mariadb.com/kb/en/mariadb-maxscale-6-regex-filter/
 
 ### Documentation - maxctrl 
 
-  * https://mariadb.com/kb/en/mariadb-maxscale-25-maxctrl/
+  * https://mariadb.com/kb/en/mariadb-maxscale-6-maxctrl/
 
 
 ### Installation and Setup
@@ -628,7 +633,7 @@ apt install maxscale
 #### Setup (Part 1: MaxScale db-user)
 
   * Do this on one of the galera nodes 
-  * Adjust IP !! 
+  * Adjust IP !! // best-> private ip from maxscale  -> e.g. 10.135.0.30
 
 ```bash
 ## IP FROM MAXSCALE
@@ -636,22 +641,23 @@ apt install maxscale
 ## It is sufficient to set it on one node, because 
 ## it will be synced to all the other nodes
 ## on node 1 
-CREATE USER 'maxscale'@'10.10.11.139' IDENTIFIED BY 'P@ssw0rd';
+CREATE USER 'maxscale'@'10.135.0.x' IDENTIFIED BY 'P@ssw0rd';
 ##
-GRANT SELECT ON mysql.db TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.user TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.db TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.user TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'10.135.0.x';
 ##
-GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'10.135.0.x';
 ##
-GRANT SHOW DATABASES ON *.* TO 'maxscale'@'10.10.11.139';
+GRANT SHOW DATABASES ON *.* TO 'maxscale'@'10.135.0.x';
 ## Needed for maxscale 
-GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'10.135.0.x';
 ```
 
 ```
+#### Testing if user works 
 ## On maxscale - server 
 apt update 
 apt install mariadb-client 
@@ -683,7 +689,7 @@ module=galeramon
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
-monitor_interval=2000
+monitor_interval=2000ms
 disable_master_failback=1
 ## Needs to be false, when block sst-method like rsync is used
 available_when_donor=false 
@@ -694,7 +700,6 @@ router=readwritesplit
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
-max_slave_connections=100%
 
 
 [RW-Split-Listener]
@@ -746,6 +751,37 @@ maxctrl list services
 maxctrl show service ReadWrite-Split-Router 
 ```
 
+### Exercise 
+
+```
+## Create user for client and maxscale on one of the galera nodes 
+## IP-Adresse from MaxScale 
+create database if not exists training; 
+create user joe@'10.135.0.45' identified by 'password';
+grant all on training.* to joe@'10.135.0.45'; 
+```
+
+```
+## Create same user for client 
+## adjust x in ip by ip - part of client 
+create database if not exists training; 
+create user joe@'10.135.0.x' identified by 'password';
+grant all on training.* to joe@'10.135.0.x'; 
+
+```
+
+```
+## Fire Up client-server (used only for mysql-client 
+## there
+## simply take the one from the repo 
+apt install mariadb-client 
+## then connect 
+mysql -ujoe -p -h<ip-of-maxscale>
+mysql>create database training; use training; create table trainee (id int,name varchar(50), primary key(id)); insert into trainee (id, name) values (1,'Jochen'); select @@hostname;
+mysql>use training; select * from trainee; select @@hostname;
+## These should be different servers 
+```
+
 ### MaxScale Torubleshooting
 
 
@@ -782,6 +818,10 @@ pt-show-grants -pyourpw | grep '\_' | sed 's/\_/_/g' > fixedgrants.sql
 after reviewing fixedgrants.sql, you can apply them.
 ```
 
+### Monitoring MaxScale
+
+  * https://mariadb.com/kb/en/mariadb-maxscale-24-mariadb-maxscale-nagios-plugins-for-nagios-351/
+
 ## ProxySQL 
 
 ### Proxysql mit Galera aufsetzen
@@ -810,6 +850,21 @@ after reviewing fixedgrants.sql, you can apply them.
   * Does the node run
   * Necessary ports available 
 
+### set threads in galera according to cert_deps 
+
+```
+Sequentially in Parallel
+
+Last, you might monitor wsrep_cert_deps_distance. It will tell you the average distance between the lowest and highest sequence number, values a node can potentially apply in parallel.
+
+Basically, this is the optimal value to set wsrep_slave_threads or wsrep_applier_threads, since it’s pointless to assign more slave threads than the number of transactions that can be applied in parallel.
+```
+
+### What to monitor 
+
+  * https://galeracluster.com/library/training/tutorials/galera-monitoring.html
+
+
 ### pmmdemo (Percona Management und Monitoring Tool) 
 
 
@@ -829,7 +884,8 @@ after reviewing fixedgrants.sql, you can apply them.
 ### Walkthrough 
 
 ```
-## 1. Adjust repo in /etc/apt/sources.list 
+## 1. Adjust repo in /etc/apt/sources.list or /etc/apt/sources.list.d/mariadb.list 
+## or /etc/sources.list.d/mariadb.sources, depending what you have used 
 deb https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.11/debian bullseye main
 apt update 
 
@@ -963,6 +1019,28 @@ In other words, the right GCache size should be equivalent to (or not less than)
 
   * https://severalnines.com/blog/how-avoid-sst-when-adding-new-node-mysql-galera-cluster/
 
+### Create fresh datadir
+
+
+
+### Walkthrough (Debian/Ubuntu) 
+
+```
+## Schritt 1: Prepare 
+systemctl stop mariadb 
+cd /var/lib 
+## eventually delete old back dir
+rm -fR /var/lib/mysql.bkup 
+## 
+mv mysql mysql.bkup 
+
+## Schritt 2: Fresh 
+mysql_install_db --user=mysql
+
+## Schritt 3: Start 
+systemctl start mariadb
+```
+
 ## Performance Optimization 
 
 ### Performance Tracking/Optimization Galera
@@ -1020,8 +1098,8 @@ MariaDB [training]> show status like '%wsrep_thread_%';
 ### Walkthrough (Backup) 
 
 ```
-mysql -e "set global wsrep_desync='on'" 
 apt install -y mariadb-backup 
+mysql -e "set global wsrep_desync='on'" 
 
 ## which options to user 
 mkdir /backups 
@@ -1032,8 +1110,11 @@ echo "user=root" >> /root/.my.cnf
 mariabackup --target-dir=/backups/20230420 --galera-info --backup 
 ## desync = off 
 mysql -e "set global wsrep_desync='off'"
+```
 
 
+
+```
 ## prepare 
 mariabackup --target-dir=/backups/20230420 --galera-info --prepare 
 
@@ -1043,7 +1124,7 @@ mariabackup --target-dir=/backups/20230420 --galera-info --prepare
 
 ```
 ## Step 1:
-Reset the server 
+## Reset the server 
 systemctl stop mariadb 
 mv /var/lib/mysql /var/lib/mysql.old 
 ## prepare grstate.dat 
@@ -1078,8 +1159,8 @@ show status like '%wsrep%';
 
 
 ```
-mysqldump --all-databases > /usr/src/all-databases.sql
-mysql <   all-databases.sql
+## please desync first 
+mysqldump --all-databases --gtid > /usr/src/all-databases.sql
 ```
 
 ## MySQL - Galera - Cluster
