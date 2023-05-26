@@ -192,7 +192,15 @@ create user joe@'10.135.0.45' identified by 'password';
 grant all on training.* to joe@'10.135.0.45'; 
 ```
 
+```
+# Create same user for client 
+create database if not exists training; 
+create user joe@'10.135.0.45' identified by 'password';
+grant all on training.* to joe@'10.135.0.45'; 
 
+```
+
+```
 # Fire Up client-server (used only for mysql-client 
 # there
 # simply take the one from the repo 
