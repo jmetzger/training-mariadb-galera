@@ -131,6 +131,7 @@ router=readwritesplit
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
+max_slave_connections=500
 
 
 [RW-Split-Listener]
