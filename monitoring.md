@@ -8,6 +8,16 @@
   * Does the node run
   * Necessary ports available 
 
+## set threads in galera according to cert_deps 
+
+```
+Sequentially in Parallel
+
+Last, you might monitor wsrep_cert_deps_distance. It will tell you the average distance between the lowest and highest sequence number, values a node can potentially apply in parallel.
+
+Basically, this is the optimal value to set wsrep_slave_threads or wsrep_applier_threads, since it’s pointless to assign more slave threads than the number of transactions that can be applied in parallel.
+```
+
 ## What to monitor 
 
   * https://galeracluster.com/library/training/tutorials/galera-monitoring.html
