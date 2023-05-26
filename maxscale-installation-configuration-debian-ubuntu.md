@@ -185,7 +185,12 @@ maxctrl show service ReadWrite-Split-Router
 ## Exercise 
 
 ```
-# Create user forr client and maxscale on one of the galera nodes 
+# Create user for client and maxscale on one of the galera nodes 
+# IP-Adresse from MaxScale 
+create database if not exists training; 
+create user joe@'10.135.0.45' identified by 'password';
+grant all on training.* to joe@'10.135.0.45'; 
+```
 
 
 # Fire Up client-server (used only for mysql-client 
