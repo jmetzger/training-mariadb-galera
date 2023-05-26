@@ -28,6 +28,7 @@
      * [License MaxScale](maxscale-license.md)
      * [Installation/Configuration - Debian/Ubuntu](maxscale-installation-configuration-debian-ubuntu.md) 
      * [MaxScale Torubleshooting](maxscale-troubleshooting.md)
+     * [Monitoring MaxScale](https://mariadb.com/kb/en/mariadb-maxscale-24-mariadb-maxscale-nagios-plugins-for-nagios-351/)
   
   1. ProxySQL 
      * [Proxysql mit Galera aufsetzen](proxysql.md)
