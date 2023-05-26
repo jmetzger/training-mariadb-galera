@@ -21,6 +21,10 @@
 *  Each release transitions in about max 4 years to GPL 
 
 
+## Current version 
+
+  * Current Version is maxscale 6 (05/2023)
+
 ## The MaxScale load-balancer and its components
 
 *  Routers 
@@ -33,15 +37,14 @@
 *  Logging Filters
 *  Statement rewriting filters
 *  Result set manipulation filters 
-*  Firewill filter
 *  Pipeline control filters
     * e.g. tee and send to a second server
 
-*  Ref: https://mariadb.com/kb/en/mariadb-maxscale-25-regex-filter/
+*  Ref: https://mariadb.com/kb/en/mariadb-maxscale-6-regex-filter/
 
 ## Documentation - maxctrl 
 
-  * https://mariadb.com/kb/en/mariadb-maxscale-25-maxctrl/
+  * https://mariadb.com/kb/en/mariadb-maxscale-6-maxctrl/
 
 
 ## Installation and Setup
@@ -61,7 +64,7 @@ apt install maxscale
 ### Setup (Part 1: MaxScale db-user)
 
   * Do this on one of the galera nodes 
-  * Adjust IP !! 
+  * Adjust IP !! // best-> private ip from maxscale  -> e.g. 10.135.0.30
 
 ```bash
 # IP FROM MAXSCALE
@@ -69,19 +72,19 @@ apt install maxscale
 # It is sufficient to set it on one node, because 
 # it will be synced to all the other nodes
 # on node 1 
-CREATE USER 'maxscale'@'10.10.11.139' IDENTIFIED BY 'P@ssw0rd';
+CREATE USER 'maxscale'@'10.35.0.x' IDENTIFIED BY 'P@ssw0rd';
 #
-GRANT SELECT ON mysql.db TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.user TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.db TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.user TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'10.135.0.x';
 #
-GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'10.135.0.x';
 #
-GRANT SHOW DATABASES ON *.* TO 'maxscale'@'10.10.11.139';
+GRANT SHOW DATABASES ON *.* TO 'maxscale'@'10.135.0.x';
 # Needed for maxscale 
-GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'10.10.11.139';
-GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'10.10.11.139';
+GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'10.135.0.x';
+GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'10.135.0.x';
 ```
 
 ```
