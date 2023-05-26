@@ -8,6 +8,11 @@
   * Does the node run
   * Necessary ports available 
 
+## What to monitor 
+
+  * https://galeracluster.com/library/training/tutorials/galera-monitoring.html
+
+
 ## pmmdemo (Percona Management und Monitoring Tool) 
 
 
