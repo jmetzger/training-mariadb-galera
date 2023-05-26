@@ -120,7 +120,7 @@ module=galeramon
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
-monitor_interval=2000
+monitor_interval=2000ms
 disable_master_failback=1
 # Needs to be false, when block sst-method like rsync is used
 available_when_donor=false 
@@ -131,7 +131,6 @@ router=readwritesplit
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
-max_slave_connections=500
 
 
 [RW-Split-Listener]
