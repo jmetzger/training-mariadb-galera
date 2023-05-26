@@ -72,7 +72,7 @@ apt install maxscale
 # It is sufficient to set it on one node, because 
 # it will be synced to all the other nodes
 # on node 1 
-CREATE USER 'maxscale'@'10.35.0.x' IDENTIFIED BY 'P@ssw0rd';
+CREATE USER 'maxscale'@'10.135.0.x' IDENTIFIED BY 'P@ssw0rd';
 #
 GRANT SELECT ON mysql.db TO 'maxscale'@'10.135.0.x';
 GRANT SELECT ON mysql.user TO 'maxscale'@'10.135.0.x';
@@ -88,6 +88,7 @@ GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'10.135.0.x';
 ```
 
 ```
+### Testing if user works 
 # On maxscale - server 
 apt update 
 apt install mariadb-client 
@@ -130,7 +131,6 @@ router=readwritesplit
 servers=server1,server2,server3
 user=maxscale
 password=P@ssw0rd
-max_slave_connections=100%
 
 
 [RW-Split-Listener]
