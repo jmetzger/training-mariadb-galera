@@ -33,9 +33,9 @@ wsrep_node_address = 10.135.0.4
 ```
 
 ```
-# Nutzer für mariabackup einrichten
-# https://mariadb.com/kb/en/mariabackup-sst-method/
-# mysql>
+-- Nutzer für mariabackup einrichten
+-- https://mariadb.com/kb/en/mariabackup-sst-method/
+-- mysql>
 CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mypassword';
 GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'mariabackup'@'localhost';
 ```
