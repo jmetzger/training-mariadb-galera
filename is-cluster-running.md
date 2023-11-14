@@ -1,6 +1,6 @@
 # Is cluster running 
 
-# The 4 most important values
+## The 4 most important values
 
 ```
 MariaDB [(none)]> show status like 'wsrep%state_comment';
