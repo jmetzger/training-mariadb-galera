@@ -22,10 +22,22 @@ wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 # Galera Cluster Configuration
 wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
-wsrep_cluster_address="gcomm://10.135.0.x"
+wsrep_cluster_address="gcomm://10.135.0.4"
 
 # Galera Synchronization Configuration
-wsrep_sst_method=rsync
+wsrep_sst_method=mariabackup
+wsrep_sst_auth=mariabackup:mypassword
+
+# Eintrag der Node selbst 
+wsrep_node_address = 10.135.0.4 
+```
+
+```
+# Nutzer für mariabackup einrichten
+# https://mariadb.com/kb/en/mariabackup-sst-method/
+# mysql>
+CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'mariabackup'@'localhost';
 ```
 
 ```
