@@ -11,7 +11,7 @@
      * [State Changes - SST/IST](sst-ist.md)
  
   1. Installation
-     * [Installation (Debian 11)](installation-debian-11.md)
+     * [Installation (Debian 12)](installation-debian-12.md)
   
   1. Configuration / Evaluation 
      * [MariaDB Cluster Configuration (Debian 11/12 / MariaDb 10.06/10.11)](cluster-configuration-debian-11.md)
