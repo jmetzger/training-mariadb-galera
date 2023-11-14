@@ -22,7 +22,9 @@ wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 # Galera Cluster Configuration
 wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
-wsrep_cluster_address="gcomm://10.135.0.4"
+
+# put in all ip-addresses 
+wsrep_cluster_address="gcomm://"10.135.0.4, 10.135.0.9, 10.135.0.15"
 
 # Galera Synchronization Configuration
 wsrep_sst_method=mariabackup
@@ -52,3 +54,10 @@ journalctl -u mariadb
 
 ```
 
+## Node 2
+
+### Install MariaDB - Server 
+
+```
+Refer to installation
+```
