@@ -33,7 +33,8 @@ Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
 
 ```
 sudo apt-get update
-sudo apt-get install mariadb-server
+# mariadb-backup if using mariadbackup as sst, no problem if installed anyways 
+sudo apt-get install mariadb-server mariadb-backup 
 ```
 
 ## Only when working with virtual box 
