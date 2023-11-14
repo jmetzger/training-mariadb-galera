@@ -3,6 +3,7 @@
 ## Agenda 
 
   1. Technical Background / Basics  
+     * [Cluster Aufbau!(cluster-structure.md)
      * [Technical Structure](technical-structure.md)
      * [Benefits of galera](benefits-galera.md) 
      * [Used Ports](arch.md)
