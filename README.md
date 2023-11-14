@@ -14,7 +14,7 @@
      * [Installation (Debian 11)](installation-debian-11.md)
   
   1. Configuration / Evaluation 
-     * [MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)](cluster-configuration-debian-11.md)
+     * [MariaDB Cluster Configuration (Debian 11/12 / MariaDb 10.06/10.11)](cluster-configuration-debian-11.md)
      * [Is Cluster running?](is-cluster-running.md)
      * [wsrep_ vars and wsrep_provider_options for config](wsrep-config.md) 
      * [Adjusted wsrep_node_address for multiple interfaces scenario](using-wsrep-node-address.md)
