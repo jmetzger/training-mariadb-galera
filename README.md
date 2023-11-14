@@ -66,6 +66,9 @@
      * [EasyPeasy - mysqladmin](mysqladmin.md) 
      * [Backup with Arbitrator aka garbd](garbd-backup.md)
      * [Geolocation galera](galera-geolocation.md)
+
+  1. Dokumentation (Releases)
+     * [Identify Long-Term Support Releases](https://mariadb.com/kb/en/mariadb-server-release-dates/) 
      
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
