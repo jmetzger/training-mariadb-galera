@@ -106,6 +106,12 @@ SAVE MYSQL QUERY RULES TO DISK;
 
 ```
 
+### Step 5.5 On galera node (used as readonly -> hostgroup 3 -> 10.135.0.15 (refer to Step 2) set read_only 
+
+```
+mysql -e "set global read_only=1"
+```
+
 ### Step 6: Show logs from galera 
 
 ```
