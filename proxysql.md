@@ -1,5 +1,14 @@
 # Proxysql 
 
+## Setting up the monitoring user in galera cluster on 1 of the nodes 
+
+```
+-- 
+-- mysql>
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';
+```
+
+
 ## Installation unter Debian 12 
 
 ```
@@ -44,6 +53,18 @@ SHOW CREATE TABLE mysql_galera_hostgroups;
 
   * https://proxysql.com/blog/effortlessly-scaling-out-galera-cluster-with-proxysql/
 
+
+### Step 1: Set Up the monitoring user
+
+```
+mysql -u admin -padmin -h 127.0.0.1 -P6032 --prompt='Admin> '
+```
+
+```
+-- Admin>
+UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-monitor_username';
+UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-monitor_password';
+```
 
 ### Step 1: Setting up servers to monitor and to access 
 
@@ -96,6 +117,9 @@ LOAD MYSQL SERVERS TO RUNTIME;
 -- will be saved to sqllite db under /var/lib/proxysql/proxysql.db
 SAVE MYSQL SERVERS TO DISK;
 ```
+
+
+
 
 ## Experiment with system 
 
