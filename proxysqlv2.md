@@ -78,7 +78,7 @@ VALUES (2,4,3,1,1,1,0,100);
 ```
 -- Verify
 select hostgroup_id,hostname,port,status,weight,max_connections from mysql_servers;
-select hostgroup_id,hostname,port,status,weight,max_connections from mysql_servers;
+select * from mysql_galera_hostgroups;
 ```
 
 ### Step 3: Configuration in die runtime laden
