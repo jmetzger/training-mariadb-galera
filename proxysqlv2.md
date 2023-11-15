@@ -4,7 +4,7 @@
 
   * https://proxysql.com/blog/proxysql-native-galera-support/
 
-!(https://proxysql.com/wp-content/uploads/2019/03/galera_cluster_native_support_in_proxysql.png)[ProxySQL Galera Setup]
+![Proxysql galera](https://proxysql.com/wp-content/uploads/2019/03/galera_cluster_native_support_in_proxysql.png)
 
 
 ## Setting up the monitoring user in galera cluster on 1 of the galera-nodes 
