@@ -88,6 +88,30 @@ LOAD MYSQL SERVERS TO RUNTIME;
 SAVE MYSQL SERVERS TO DISK;
 ```
 
+### Step 4: Verify connections 
+
+```
+--  server with lowest weight moved to hostgroup -> 4 (backup_writer) from 2
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
+
+### Step 5: Define SQL Query Rules 
+
+```
+-- do this in Admin> interface 
+INSERT INTO mysql_query_rules (active, match_digest, destination_hostgroup, apply) VALUES (1, '^SELECT.*',3, 0);
+INSERT INTO mysql_query_rules (active, match_digest, destination_hostgroup, apply) VALUES (1, '^SELECT.* FOR UPDATE',2, 1);
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
+
+```
+
+### Step 6: Show logs from galera 
+
+```
+select * from mysql_server_galera_log order by time_start_us desc limit 3;
+```
+
 
 ## Experiment with system 
 
