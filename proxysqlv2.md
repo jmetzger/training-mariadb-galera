@@ -5,7 +5,7 @@
   * https://proxysql.com/blog/proxysql-native-galera-support/
 
 
-## Setting up the monitoring user in galera cluster on 1 of the nodes 
+## Setting up the monitoring user in galera cluster on 1 of the galera-nodes 
 
 ```
 -- 
