@@ -3,6 +3,7 @@
 
 ## Agenda
   1. Technical Background / Basics  
+     * [Cluster Aufbau](#cluster-aufbau)
      * [Technical Structure](#technical-structure)
      * [Benefits of galera](#benefits-of-galera)
      * [Used Ports](#used-ports)
@@ -10,10 +11,10 @@
      * [State Changes - SST/IST](#state-changes---sstist)
  
   1. Installation
-     * [Installation (Debian 11)](#installation-debian-11)
+     * [Installation (Debian 12)](#installation-debian-12)
   
   1. Configuration / Evaluation 
-     * [MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)](#mariadb-cluster-configuration-debian-11--mariadb-1006)
+     * [MariaDB Cluster Configuration (Debian 11/12 / MariaDb 10.06/10.11)](#mariadb-cluster-configuration-debian-1112--mariadb-10061011)
      * [Is Cluster running?](#is-cluster-running)
      * [wsrep_ vars and wsrep_provider_options for config](#wsrep_-vars-and-wsrep_provider_options-for-config)
      * [Adjusted wsrep_node_address for multiple interfaces scenario](#adjusted-wsrep_node_address-for-multiple-interfaces-scenario)
@@ -42,6 +43,9 @@
      * [Schema Upgrades](#schema-upgrades)
      * [Find good gcache-size](#find-good-gcache-size)
      * [Create fresh datadir](#create-fresh-datadir)
+    
+  1. Migration Scenarios
+     * [Migrating from MySQL 5.7 (Master Slave) to MariaDB Galera Cluster](#migrating-from-mysql-57-master-slave-to-mariadb-galera-cluster)
  
   1. Performance Optimization 
      * [Performance Tracking/Optimization Galera](#performance-trackingoptimization-galera)
@@ -65,9 +69,13 @@
      * [EasyPeasy - mysqladmin](#easypeasy---mysqladmin)
      * [Backup with Arbitrator aka garbd](#backup-with-arbitrator-aka-garbd)
      * [Geolocation galera](#geolocation-galera)
+
+  1. Dokumentation (Releases)
+     * [Identify Long-Term Support Releases](https://mariadb.com/kb/en/mariadb-server-release-dates/)
      
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
+     * [Important Server System Variables Galera in mariadb](https://mariadb.com/kb/en/galera-cluster-system-variables/)
      * [thread pool](https://mariadb.com/kb/en/thread-pool-in-mariadb/)
      * [Documentation/Help](#documentationhelp)
 
@@ -108,6 +116,11 @@ innodb_autoinc_lock_mode = 2
 <div class="page-break"></div>
 
 ## Technical Background / Basics  
+
+### Cluster Aufbau
+
+
+![image](https://github.com/jmetzger/training-mariadb-galera/assets/1933318/28dac265-fdb1-40ea-ab77-64358b0aa393)
 
 ### Technical Structure
 
@@ -177,21 +190,44 @@ Port 4444 :: Used for all other SSt's: mariabackup, rsync
 
 ## Installation
 
-### Installation (Debian 11)
+### Installation (Debian 12)
 
 
-### Get repo and install (Debian 11 and MariaDB 10.6) 
+### Get information about installation of repo 
+
+  * https://mariadb.org/download/?t=mariadb&p=mariadb&r=11.3.0
+  * https://mariadb.org/download/?t=repo-config&d=Debian+12+%22Bookworm%22&v=10.11&r_m=agdsn
+
+
+### Get repo and install (Debian 12 and MariaDB 10.11) 
 
 ```
-## https://mariadb.org/download/?t=repo-config&d=Debian+11+%22Bullseye%22&v=10.6&r_m=agdsn
 sudo apt-get install apt-transport-https curl
-sudo curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc'
-sudo sh -c "echo 'deb https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.6/debian bullseye main' >>/etc/apt/sources.list"
+sudo mkdir -p /etc/apt/keyrings
+sudo curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
 
+```
+nano /etc/apt/sources.list.d/mariadb.sources
+```
 
-sudo apt update
-sudo apt install -y mariadb-server 
-## hostnamectl set-hostname g1.t3isp.de 
+```
+## MariaDB 10.11 repository list - created 2023-11-14 10:43 UTC
+## https://mariadb.org/download/
+X-Repolib-Name: MariaDB
+Types: deb
+## deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
+## URIs: https://deb.mariadb.org/10.11/debian
+URIs: https://ftp.agdsn.de/pub/mirrors/mariadb/repo/10.11/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+```
+sudo apt-get update
+## mariadb-backup if using mariadbackup as sst, no problem if installed anyways 
+sudo apt-get install mariadb-server mariadb-backup 
 ```
 
 ### Only when working with virtual box 
@@ -215,7 +251,7 @@ sudo reboot
 
 ## Configuration / Evaluation 
 
-### MariaDB Cluster Configuration (Debian 11 / MariaDb 10.06)
+### MariaDB Cluster Configuration (Debian 11/12 / MariaDb 10.06/10.11)
 
 
 ### Node 1 
@@ -240,10 +276,24 @@ wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 ## Galera Cluster Configuration
 wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
-wsrep_cluster_address="gcomm://10.135.0.x"
+
+## put in all ip-addresses 
+wsrep_cluster_address="gcomm://"10.135.0.4, 10.135.0.9, 10.135.0.15"
 
 ## Galera Synchronization Configuration
-wsrep_sst_method=rsync
+wsrep_sst_method=mariabackup
+wsrep_sst_auth=mariabackup:mypassword
+
+## Eintrag der Node selbst 
+wsrep_node_address = 10.135.0.4 
+```
+
+```
+-- Nutzer für mariabackup einrichten
+-- https://mariadb.com/kb/en/mariabackup-sst-method/
+-- mysql>
+CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'mariabackup'@'localhost';
 ```
 
 ```
@@ -258,11 +308,106 @@ journalctl -u mariadb
 
 ```
 
+### Node 2
+
+#### Install MariaDB - Server 
+
+```
+Refer to installation
+```
+
+#### Configure galera 
+
+```
+## cat /etc/mysql/mariadb.conf.d/60-galera.cnf
+[mysqld]
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2 
+bind-address=0.0.0.0
+
+## Set to 1 sec instead of per transaction
+
+## for better performance // Attention: You might loose data on power outage
+innodb_flush_log_at_trx_commit=2
+
+## Galera Provider Configuration
+
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+
+## Galera Cluster Configuration
+wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
+
+## put in all ip-addresses 
+wsrep_cluster_address="gcomm://"10.135.0.4, 10.135.0.9, 10.135.0.15"
+
+## Galera Synchronization Configuration
+wsrep_sst_method=mariabackup
+wsrep_sst_auth=mariabackup:mypassword
+
+## Eintrag der Node selbst / 2. ip 
+wsrep_node_address = 10.135.0.9 
+```
+
+#### Starten des 2. Nodes 
+
+```
+systemctl restart mariadb
+```
+
+### Node 3
+
+#### Install MariaDB - Server 
+
+```
+Refer to installation
+```
+
+#### Configure galera 
+
+```
+## cat /etc/mysql/mariadb.conf.d/60-galera.cnf
+[mysqld]
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2 
+bind-address=0.0.0.0
+
+## Set to 1 sec instead of per transaction
+
+## for better performance // Attention: You might loose data on power outage
+innodb_flush_log_at_trx_commit=2
+
+## Galera Provider Configuration
+
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+
+## Galera Cluster Configuration
+wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
+
+## put in all ip-addresses 
+wsrep_cluster_address="gcomm://"10.135.0.4, 10.135.0.9, 10.135.0.15"
+
+## Galera Synchronization Configuration
+wsrep_sst_method=mariabackup
+wsrep_sst_auth=mariabackup:mypassword
+
+## Eintrag der Node selbst / 2. ip 
+wsrep_node_address = 10.135.0.9 
+```
+
+#### Starten des 3. Nodes 
+
+```
+systemctl restart mariadb
+```
 
 ### Is Cluster running?
 
 
-## The 4 most important values
+### The 4 most important values
 
 ```
 MariaDB [(none)]> show status like 'wsrep%state_comment';
@@ -479,6 +624,18 @@ galera_recovery
 sudo -u mysql mysqld --wsrep-recover
 ## In the last line you will have uid and the offset position (after :, here 21) 
 2020-11-17 11:30:31 0 [Note] WSREP: Recovered position: 6dcdc984-2808-11eb-abeb-f799ea8dadff:21
+```
+
+### Step 2: Adjust grastate.dat in Server with highest seq_no 
+
+```
+## only if it is not safe_to_bootstrap on one the hosts 
+## change safe to bootstrap from safe_to_bootstrap: 0 -> safe_to_bootstrap: 1
+```
+
+```
+## on this node 
+galera_new_cluster
 ```
 
 ### Node not coming up -start fresh
@@ -827,9 +984,229 @@ after reviewing fixedgrants.sql, you can apply them.
 ### Proxysql mit Galera aufsetzen
 
 
-### Einrichtung 
+### Important Reference:
 
   * https://proxysql.com/blog/proxysql-native-galera-support/
+
+![Proxysql galera](https://proxysql.com/wp-content/uploads/2019/03/galera_cluster_native_support_in_proxysql.png)
+
+
+### Setting up the monitoring user in galera cluster on 1 of the galera-nodes 
+
+```
+-- 
+-- mysql>
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';
+```
+
+
+### On proxysql-server: Installation unter Debian 12 
+
+```
+## DO THIS AS ROOT ! 
+apt-get install -y --no-install-recommends lsb-release wget apt-transport-https ca-certificates gnupg
+wget -nv -O /etc/apt/trusted.gpg.d/proxysql-2.5.x-keyring.gpg 'https://repo.proxysql.com/ProxySQL/proxysql-2.5.x/repo_pub_key.gpg'
+echo deb https://repo.proxysql.com/ProxySQL/proxysql-2.5.x/$(lsb_release -sc)/ ./ | tee /etc/apt/sources.list.d/proxysql.list
+## Referenz:
+## https://proxysql.com/documentation/installing-proxysql/
+apt update
+## Client needed to access admin - databases from proxysql 
+apt install -y proxysql mariadb-client 
+```
+
+```
+## systemctl commands work from here
+systemctl status proxysql
+```
+
+```
+## start proxysql service
+systemctl start proxysql
+```
+
+
+### On proxysql-server: Walkthrough - Setting up proxysql with galera 
+
+#### Step 1: Set Up the monitoring user
+
+```
+mysql -u admin -padmin -h 127.0.0.1 -P6032 --prompt='Admin> '
+```
+
+```
+-- Admin>
+UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-monitor_username';
+UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-monitor_password';
+```
+
+#### Step 2: Setting up servers to monitor and to access 
+
+```
+mysql -P6032 -uadmin -padmin -h 127.0.0.1
+```
+
+```
+-- Admin>
+-- Setup Servers to monitor and use 
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (2,'10.135.0.4',3306,100);
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (2,'10.135.0.9',3306,10);
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (3,'10.135.0.15',3306,100);
+```
+
+```
+-- Setup what hostgroup does what ?
+INSERT INTO mysql_galera_hostgroups (writer_hostgroup,backup_writer_hostgroup,reader_hostgroup,offline_hostgroup,active,max_writers,writer_is_also_reader,max_transactions_behind) 
+VALUES (2,4,3,1,1,1,0,100);
+```
+
+```
+-- Verify
+select hostgroup_id,hostname,port,status,weight,max_connections from mysql_servers;
+select * from mysql_galera_hostgroups;
+```
+
+#### Step 3: Configuration in die runtime laden
+
+```
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+```
+
+#### Step 4: Verify connections 
+
+```
+--  server with lowest weight moved to hostgroup -> 4 (backup_writer) from 2
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
+
+#### Step 5: Define SQL Query Rules 
+
+```
+-- do this in Admin> interface 
+INSERT INTO mysql_query_rules (active, match_digest, destination_hostgroup, apply) VALUES (1, '^SELECT.*',3, 0);
+INSERT INTO mysql_query_rules (active, match_digest, destination_hostgroup, apply) VALUES (1, '^SELECT.* FOR UPDATE',2, 1);
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
+
+```
+
+#### Step 5.5 On galera node (used as readonly -> hostgroup 3 -> 10.135.0.15 (refer to Step 2) set read_only 
+
+```
+mysql -e "set global read_only=1"
+```
+
+#### Step 6: Show logs from galera 
+
+```
+select * from mysql_server_galera_log order by time_start_us desc limit 3;
+```
+
+#### Step 7: ON PROXY-SQL 
+
+```
+-- In Admin -> interface 
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
+
+```
+## nur Ausgabe 2 + Online = Writer  
++-----------+-------------+---------+----------+-------------+---------+------------+
+| hostgroup | srv_host    | status  | ConnUsed | MaxConnUsed | Queries | Latency_us |
++-----------+-------------+---------+----------+-------------+---------+------------+
+| 3         | 10.135.0.15 | ONLINE  | 0        | 0           | 0       | 900        |
+| 2         | 10.135.0.4  | ONLINE  | 0        | 0           | 0       | 1021       |
+| 2         | 10.135.0.9  | SHUNNED | 0        | 0           | 0       | 1041       |
+| 4         | 10.135.0.9  | ONLINE  | 0        | 0           | 0       | 1041       |
++-----------+-------------+---------+----------+-------------+---------+------------+
+4 rows in set (0.003 sec)
+```
+
+### Step 8: On current writer: hostgroup 2 + ONLINE -> 10.135.0.4 (Server 1 in my case) 
+
+```
+-- on 10.135.0.4
+-- mysql
+set global wsrep_desync = 1;
+```
+
+### Step 9: ON - PROXY SQL 
+
+```
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
+
+```
++-----------+-------------+--------------+----------+-------------+---------+------------+
+| hostgroup | srv_host    | status       | ConnUsed | MaxConnUsed | Queries | Latency_us |
++-----------+-------------+--------------+----------+-------------+---------+------------+
+| 3         | 10.135.0.15 | ONLINE       | 0        | 0           | 0       | 787        |
+| 2         | 10.135.0.4  | OFFLINE_HARD | 0        | 0           | 0       | 975        |
+| 1         | 10.135.0.4  | ONLINE       | 0        | 0           | 0       | 975        |
+| 2         | 10.135.0.9  | ONLINE       | 0        | 0           | 0       | 912        |
+| 4         | 10.135.0.9  | OFFLINE_HARD | 0        | 0           | 0       | 912        |
++-----------+-------------+--------------+----------+-------------+---------+------------+
+```
+
+### Experiment with system 
+
+#### Step 1: Update max_writers 
+
+```
+update mysql_galera_hostgroups set max_writers=2;
+select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
+-- Achtung, abweichend von doku proxysql -> so funktionierts 
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+```
+
+#### Step 2: Setting writer_is_also_reader to 0 (with max_writers set back to 1).
+
+```
+update mysql_galera_hostgroups set max_writers=1,writer_is_also_reader=0;
+select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+```
+
+### Nutzer zum Verwenden in galera cluster anlegen 
+
+#### Schritt 1: Auf einer Nodes des Galera Clusters 
+
+```
+-- auf einem nodes nutzer anlegen
+-- mysql>
+-- ES IST ausreichend, dass der proxysql - server zugreifen kann 
+create user extern@10.135.0.18 identified by 'password';
+grant all on sakila.* to extern@10.135.0.18
+```
+
+#### Schritt 2: Nutzer in proxysql anlegen 
+
+```
+-- im Admin - Interface
+-- Admin>
+INSERT INTO mysql_users(username,password,default_hostgroup) VALUES ('extern','password',2);
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
+```
+
+```
+## Externe IP-Adresse des Proxy-SQL-Server rausfinden
+ip -br -c a
+```
+
+#### Schritt 3: Von entferntem System ausserhalb von proxysql und cluster 
+
+```
+mysql -u extern -ppassword -h 165.232.69.248 -P6033 -e"insert into actor (first_name,last_name) values ('hans','hansi');" sakila
+```
+
+
+### References
+
+  * https://proxysql.com/blog/proxysql-native-galera-support/
+  * https://proxysql.com/blog/effortlessly-scaling-out-galera-cluster-with-proxysql/
   * https://severalnines.com/database-blog/how-run-and-configure-proxysql-20-mysql-galera-cluster-docker
 
 ### Sharding mit ProxySQL
@@ -957,7 +1334,7 @@ In Total Order Isolation, queries that change the schema replicate as statements
 
 ```
 ## SSH-Session 1 to node 1:
-sudo su -
+## als root
 cd /usr/src
 wget https://downloads.mysql.com/docs/sakila-db.tar.gz
 tar xzvf sakila-db.tar.gz 
@@ -1040,6 +1417,13 @@ mysql_install_db --user=mysql
 ## Schritt 3: Start 
 systemctl start mariadb
 ```
+
+## Migration Scenarios
+
+### Migrating from MySQL 5.7 (Master Slave) to MariaDB Galera Cluster
+
+
+![image](https://github.com/jmetzger/training-mariadb-galera/assets/1933318/24c8e500-a0cf-4c12-a20e-d8c083458ac0)
 
 ## Performance Optimization 
 
@@ -1497,11 +1881,21 @@ Ideally we should have 3 datacenter, so in case of an outage, the other
   * https://galeracluster.com/2015/07/geo-distributed-database-clusters-with-galera/
   * https://galeracluster.com/2015/07/cant-be-any-faster-than-that-a-real-life-experiment-with-latency-in-a-geo-distributed-environment/
 
+## Dokumentation (Releases)
+
+### Identify Long-Term Support Releases
+
+  * https://mariadb.com/kb/en/mariadb-server-release-dates/
+
 ## Documentation 
 
 ### galera cluster - documentation parameters
 
   * https://galeracluster.com/library/documentation/galera-parameters.html
+
+### Important Server System Variables Galera in mariadb
+
+  * https://mariadb.com/kb/en/galera-cluster-system-variables/
 
 ### thread pool
 
