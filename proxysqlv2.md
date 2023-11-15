@@ -164,7 +164,6 @@ select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from st
 +-----------+-------------+--------------+----------+-------------+---------+------------+
 ```
 
-
 ## Experiment with system 
 
 ### Step 1: Update max_writers 
@@ -172,7 +171,9 @@ select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from st
 ```
 update mysql_galera_hostgroups set max_writers=2;
 select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
-
+-- Achtung, abweichend von doku proxysql -> so funktionierts 
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
 ```
 
 ### Step 2: Setting writer_is_also_reader to 0 (with max_writers set back to 1).
@@ -180,10 +181,9 @@ select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysq
 ```
 update mysql_galera_hostgroups set max_writers=1,writer_is_also_reader=0;
 select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
-
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
 ```
-
-
 
 ## References
 
