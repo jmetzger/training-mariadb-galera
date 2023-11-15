@@ -28,10 +28,12 @@ apt update
 apt install -y proxysql mariadb-client 
 ```
 
+```
+# systemctl commands work from here
+systemctl status proxysql
+```
+
 ## On proxysql-server: Walkthrough - Setting up proxysql with galera 
-
-  * https://proxysql.com/blog/effortlessly-scaling-out-galera-cluster-with-proxysql/
-
 
 ### Step 1: Set Up the monitoring user
 
@@ -75,4 +77,5 @@ select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysq
 ## References
 
   * https://proxysql.com/blog/proxysql-native-galera-support/
+  * https://proxysql.com/blog/effortlessly-scaling-out-galera-cluster-with-proxysql/
   * https://severalnines.com/database-blog/how-run-and-configure-proxysql-20-mysql-galera-cluster-docker
