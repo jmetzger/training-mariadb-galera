@@ -1,5 +1,10 @@
 # Proxysql 
 
+## Important Reference:
+
+  * https://proxysql.com/blog/proxysql-native-galera-support/
+
+
 ## Setting up the monitoring user in galera cluster on 1 of the nodes 
 
 ```
@@ -66,7 +71,7 @@ UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-
 UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-monitor_password';
 ```
 
-### Step 1: Setting up servers to monitor and to access 
+### Step 2: Setting up servers to monitor and to access 
 
 ```
 mysql -P6032 -uadmin -padmin -h 127.0.0.1
@@ -86,7 +91,7 @@ INSERT INTO mysql_servers(hostgroup_id,hostname,port) VALUES (1,'10.135.0.15',33
 LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
-### Step 2: Setup the correct linking between hostgroups
+### Step 3: Setup the correct linking between hostgroups
 
 ```
 We continue adding configuration that defines the behavior we want ProxySQL to have for our Galera cluster workload. For this we make use of the table mysql_galera_hostgroups. Initially we are going to set max_writers=1 and writer_is_also_reader=1. This means that we will have 1 writer and 3 readers, reader nodes will also be placed in the backup_writer_hostgroup. This is because:
@@ -103,14 +108,14 @@ INSERT INTO mysql_galera_hostgroups (writer_hostgroup, backup_writer_hostgroup, 
 LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
-### Step 3: Verify tables 
+### Step 4: Verify tables 
 
 ```
 select * from mysql_servers;
 select * from mysql_galera_hostgroups\G
 ```
 
-### Step 4: Load configuration and save it to disk 
+### Step 5: Load configuration and save it to disk 
 
 ```
 LOAD MYSQL SERVERS TO RUNTIME;
@@ -118,6 +123,21 @@ LOAD MYSQL SERVERS TO RUNTIME;
 SAVE MYSQL SERVERS TO DISK;
 ```
 
+## Look into monitoring 
+
+### Step 1: 
+
+```
+mysql -P6032 -uadmin -padmin -h 127.0.0.1
+```
+
+
+```
+SHOW TABLES FROM monitor;
+## Dedicated logs for events
+SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 3;
+SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 3;
+```
 
 
 
