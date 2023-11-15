@@ -10,7 +10,8 @@ echo deb https://repo.proxysql.com/ProxySQL/proxysql-2.5.x/$(lsb_release -sc)/ .
 # Referenz:
 # https://proxysql.com/documentation/installing-proxysql/
 apt update
-apt install -y proxysql
+# Client needed to access admin - databases from proxysql 
+apt install -y proxysql mariadb-client 
 ```
 
 ## Reinitialize from config-file (after first startup database is used)
@@ -20,9 +21,30 @@ apt install -y proxysql
 systemctl start proxysql-initial
 ```
 
+## Configuration through admin-interface 
+
+```
+mysql -u admin -padmin -h 127.0.0.1 -P6032 --prompt='Admin> '
+```
+
+```
+-- mysql
+show databases;
+select * from global_variables where variable_name like '%monitor_galera%';
+
+-- there is a specific hostgroup for galera
+SHOW CREATE TABLE mysql_galera_hostgroups;
+
+
+```
+
+## Configuration through config - file 
+
+```
 
 
 
+```
 
 ## References
 
