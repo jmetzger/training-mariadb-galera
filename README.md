@@ -32,7 +32,7 @@
      * [Monitoring MaxScale](https://mariadb.com/kb/en/mariadb-maxscale-24-mariadb-maxscale-nagios-plugins-for-nagios-351/)
   
   1. ProxySQL 
-     * [Proxysql mit Galera aufsetzen](proxysql.md)
+     * [Proxysql mit Galera aufsetzen](proxysqlv2.md)
      * [Sharding mit ProxySQL](proxysql-sharding.md)
   
   1. Monitoring 
