@@ -59,6 +59,33 @@ UPDATE global_variables SET variable_value='monitor' WHERE variable_name='mysql-
 mysql -P6032 -uadmin -padmin -h 127.0.0.1
 ```
 
+```
+-- Admin>
+-- Setup Servers to monitor and use 
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (2,'10.135.0.4',3306,100);
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (2,'10.135.0.9',3306,10);
+INSERT INTO mysql_servers(hostgroup_id,hostname,port,weight) VALUES (3,'10.135.0.15',3306,100);
+```
+
+```
+-- Setup what hostgroup does what ?
+INSERT INTO mysql_galera_hostgroups (writer_hostgroup,backup_writer_hostgroup,reader_hostgroup,offline_hostgroup,active,max_writers,writer_is_also_reader,max_transactions_behind) 
+VALUES (2,4,3,1,1,1,0,100);
+```
+
+```
+-- Verify
+select hostgroup_id,hostname,port,status,weight,max_connections from mysql_servers;
+select hostgroup_id,hostname,port,status,weight,max_connections from mysql_servers;
+```
+
+### Step 3: Configuration in die runtime laden
+
+```
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+```
+
 
 ## Experiment with system 
 
