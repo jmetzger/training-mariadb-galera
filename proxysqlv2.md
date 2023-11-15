@@ -14,7 +14,7 @@ CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';
 ```
 
 
-## Installation unter Debian 12 
+## On proxysql-server: Installation unter Debian 12 
 
 ```
 # DO THIS AS ROOT ! 
@@ -28,7 +28,7 @@ apt update
 apt install -y proxysql mariadb-client 
 ```
 
-## Walkthrough - Setting up proxysql with galera 
+## On proxysql-server: Walkthrough - Setting up proxysql with galera 
 
   * https://proxysql.com/blog/effortlessly-scaling-out-galera-cluster-with-proxysql/
 
