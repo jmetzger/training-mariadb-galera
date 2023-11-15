@@ -146,9 +146,23 @@ select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from st
 set global wsrep_desync = 1;
 ```
 
+## Step 9: ON - PROXY SQL 
 
+```
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
 
-
+```
++-----------+-------------+--------------+----------+-------------+---------+------------+
+| hostgroup | srv_host    | status       | ConnUsed | MaxConnUsed | Queries | Latency_us |
++-----------+-------------+--------------+----------+-------------+---------+------------+
+| 3         | 10.135.0.15 | ONLINE       | 0        | 0           | 0       | 787        |
+| 2         | 10.135.0.4  | OFFLINE_HARD | 0        | 0           | 0       | 975        |
+| 1         | 10.135.0.4  | ONLINE       | 0        | 0           | 0       | 975        |
+| 2         | 10.135.0.9  | ONLINE       | 0        | 0           | 0       | 912        |
+| 4         | 10.135.0.9  | OFFLINE_HARD | 0        | 0           | 0       | 912        |
++-----------+-------------+--------------+----------+-------------+---------+------------+
+```
 
 
 ## Experiment with system 
