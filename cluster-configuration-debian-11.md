@@ -101,3 +101,51 @@ wsrep_node_address = 10.135.0.9
 ```
 systemctl restart mariadb
 ```
+
+## Node 3
+
+### Install MariaDB - Server 
+
+```
+Refer to installation
+```
+
+### Configure galera 
+
+```
+# cat /etc/mysql/mariadb.conf.d/60-galera.cnf
+[mysqld]
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2 
+bind-address=0.0.0.0
+
+# Set to 1 sec instead of per transaction
+
+# for better performance // Attention: You might loose data on power outage
+innodb_flush_log_at_trx_commit=2
+
+# Galera Provider Configuration
+
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+
+# Galera Cluster Configuration
+wsrep_cluster_name="test_cluster-<your shortcut e.g. r1>"
+
+# put in all ip-addresses 
+wsrep_cluster_address="gcomm://"10.135.0.4, 10.135.0.9, 10.135.0.15"
+
+# Galera Synchronization Configuration
+wsrep_sst_method=mariabackup
+wsrep_sst_auth=mariabackup:mypassword
+
+# Eintrag der Node selbst / 2. ip 
+wsrep_node_address = 10.135.0.9 
+```
+
+### Starten des 3. Nodes 
+
+```
+systemctl restart mariadb
+```
