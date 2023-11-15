@@ -118,6 +118,38 @@ mysql -e "set global read_only=1"
 select * from mysql_server_galera_log order by time_start_us desc limit 3;
 ```
 
+### Step 7: ON PROXY-SQL 
+
+```
+-- In Admin -> interface 
+select hostgroup,srv_host,status,ConnUsed,MaxConnUsed,Queries,Latency_us from stats.stats_mysql_connection_pool order by srv_host;
+```
+
+```
+# nur Ausgabe 2 + Online = Writer  
++-----------+-------------+---------+----------+-------------+---------+------------+
+| hostgroup | srv_host    | status  | ConnUsed | MaxConnUsed | Queries | Latency_us |
++-----------+-------------+---------+----------+-------------+---------+------------+
+| 3         | 10.135.0.15 | ONLINE  | 0        | 0           | 0       | 900        |
+| 2         | 10.135.0.4  | ONLINE  | 0        | 0           | 0       | 1021       |
+| 2         | 10.135.0.9  | SHUNNED | 0        | 0           | 0       | 1041       |
+| 4         | 10.135.0.9  | ONLINE  | 0        | 0           | 0       | 1041       |
++-----------+-------------+---------+----------+-------------+---------+------------+
+4 rows in set (0.003 sec)
+```
+
+## Step 8: On current writer: hostgroup 2 + ONLINE -> 10.135.0.4 (Server 1 in my case) 
+
+```
+-- on 10.135.0.4
+-- mysql
+set global wsrep_desync = 1;
+```
+
+
+
+
+
 
 ## Experiment with system 
 
