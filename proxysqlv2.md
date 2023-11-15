@@ -33,6 +33,12 @@ apt install -y proxysql mariadb-client
 systemctl status proxysql
 ```
 
+```
+# start proxysql service
+systemctl start proxysql
+```
+
+
 ## On proxysql-server: Walkthrough - Setting up proxysql with galera 
 
 ### Step 1: Set Up the monitoring user
