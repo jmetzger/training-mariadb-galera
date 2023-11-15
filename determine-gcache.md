@@ -4,7 +4,7 @@
 
 ```
 # SSH-Session 1 to node 1:
-sudo su -
+# als root
 cd /usr/src
 wget https://downloads.mysql.com/docs/sakila-db.tar.gz
 tar xzvf sakila-db.tar.gz 
