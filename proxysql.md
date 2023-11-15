@@ -34,8 +34,6 @@ select * from global_variables where variable_name like '%monitor_galera%';
 
 -- there is a specific hostgroup for galera
 SHOW CREATE TABLE mysql_galera_hostgroups;
-
-
 ```
 
 ### What is what in the mysql_galera_hostgroups 
@@ -67,7 +65,55 @@ INSERT INTO mysql_servers(hostgroup_id,hostname,port) VALUES (1,'10.135.0.15',33
 LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
+### Step 2: Setup the correct linking between hostgroups
 
+```
+We continue adding configuration that defines the behavior we want ProxySQL to have for our Galera cluster workload. For this we make use of the table mysql_galera_hostgroups. Initially we are going to set max_writers=1 and writer_is_also_reader=1. This means that we will have 1 writer and 3 readers, reader nodes will also be placed in the backup_writer_hostgroup. This is because:
+
+As doc states “writer_is_also_reader=1: nodes in writer_hostgroup and backup_writer_hostgroup are also in reader hostgroup.”
+The number of writers is limited to 1.
+```
+
+```
+DELETE FROM mysql_galera_hostgroups;
+
+INSERT INTO mysql_galera_hostgroups (writer_hostgroup, backup_writer_hostgroup, reader_hostgroup, offline_hostgroup, active, max_writers, writer_is_also_reader, max_transactions_behind, comment) VALUES (0, 2, 1, 4, 1, 1, 1, 100, NULL);
+
+LOAD MYSQL SERVERS TO RUNTIME;
+```
+
+### Step 3: Verify tables 
+
+```
+select * from mysql_servers;
+select * from mysql_galera_hostgroups\G
+```
+
+### Step 4: Load configuration and save it to disk 
+
+```
+LOAD MYSQL SERVERS TO RUNTIME;
+-- will be saved to sqllite db under /var/lib/proxysql/proxysql.db
+SAVE MYSQL SERVERS TO DISK;
+```
+
+## Experiment with system 
+
+### Step 1: Update max_writers 
+
+```
+update mysql_galera_hostgroups set max_writers=2;
+select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
+
+```
+
+### Step 2: Setting writer_is_also_reader to 0 (with max_writers set back to 1).
+
+```
+update mysql_galera_hostgroups set max_writers=1,writer_is_also_reader=0;
+select hostgroup_id, hostname, port, gtid_port, status, weight from runtime_mysql_servers;
+
+```
 
 
 
