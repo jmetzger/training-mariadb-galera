@@ -75,6 +75,7 @@
      
   1. Documentation 
      * [galera cluster - documentation parameters](https://galeracluster.com/library/documentation/galera-parameters.html)
+     * [Important Server System Variables Galera in mariadb](https://mariadb.com/kb/en/galera-cluster-system-variables/)
      * [thread pool](https://mariadb.com/kb/en/thread-pool-in-mariadb/)
      * [Documentation/Help](documentation-help.md)
 
