@@ -185,6 +185,40 @@ LOAD MYSQL SERVERS TO RUNTIME;
 SAVE MYSQL SERVERS TO DISK;
 ```
 
+## Nutzer zum Verwenden in galera cluster anlegen 
+
+### Schritt 1: Auf einer Nodes des Galera Clusters 
+
+```
+-- auf einem nodes nutzer anlegen
+-- mysql>
+-- ES IST ausreichend, dass der proxysql - server zugreifen kann 
+create user extern@10.135.0.18 identified by 'password';
+grant all on sakila.* to extern@10.135.0.18
+```
+
+### Schritt 2: Nutzer in proxysql anlegen 
+
+```
+-- im Admin - Interface
+-- Admin>
+INSERT INTO mysql_users(username,password,default_hostgroup) VALUES ('extern','password',2);
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
+```
+
+```
+# Externe IP-Adresse des Proxy-SQL-Server rausfinden
+ip -br -c a
+```
+
+### Schritt 3: Von entferntem System ausserhalb von proxysql und cluster 
+
+```
+mysql -u extern -ppassword -h 165.232.69.248 -P6033 -e"insert into actor (first_name,last_name) values ('hans','hansi');" sakila
+```
+
+
 ## References
 
   * https://proxysql.com/blog/proxysql-native-galera-support/
