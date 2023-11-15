@@ -44,3 +44,15 @@ sudo -u mysql mysqld --wsrep-recover
 # In the last line you will have uid and the offset position (after :, here 21) 
 2020-11-17 11:30:31 0 [Note] WSREP: Recovered position: 6dcdc984-2808-11eb-abeb-f799ea8dadff:21
 ```
+
+## Step 2: Adjust grastate.dat in Server with highest seq_no 
+
+```
+# only if it is not safe_to_bootstrap on one the hosts 
+# change safe to bootstrap from safe_to_bootstrap: 0 -> safe_to_bootstrap: 1
+```
+
+```
+# on this node 
+galera_new_cluster
+```
